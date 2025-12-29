@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+ENV/
+env.bak/
+venv.bak/
+
+# Virtual environment (your case)
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# Environments
+.env
+.envrc
+
+# Data files (optional: ignore large CSVs to keep repo small)
+data/*.pkl
+
+# Results (charts, etc. — can be regenerated)
+results/
+
+# IDEs
+.idea/              # PyCharm/JetBrains
+.vscode/            # VS Code settings (optional, if you share settings keep it)
+
+# OS files
+.DS_Store           # macOS
+Thumbs.db           # Windows
