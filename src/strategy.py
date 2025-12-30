@@ -27,3 +27,28 @@ class GoldenCrossStrategy:
         self.data = self.data.dropna()
         
         return self.data
+    
+    def generate_signals(self):
+        """Generates buy/sell signals from SMA crossovers."""
+        # Call SMAs first
+        self.calculate_smas()
+        
+        # Raw signal: Detect crossovers
+        self.data['signal_raw'] = 0
+        # Buy (1): Short > long today, but <= yesterday
+        self.data['signal_raw'] = np.where(
+            (self.data['sma_short'] > self.data['sma_long']) &
+            (self.data['sma_short'].shift(1) <= self.data['sma_long'].shift(1)),
+            1, self.data['signal_raw']
+        )
+        # Sell (-1): Short < long today, but >= yesterday
+        self.data['signal_raw'] = np.where(
+            (self.data['sma_short'] < self.data['sma_long']) &
+            (self.data['sma_short'].shift(1) >= self.data['sma_long'].shift(1)),
+            -1, self.data['signal_raw']
+        )
+        
+        # CRITICAL: Shift to avoid look-ahead bias
+        self.data['signal'] = self.data['signal_raw'].shift(1).fillna(0)
+        
+        return self.data
