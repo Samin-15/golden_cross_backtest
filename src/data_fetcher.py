@@ -27,22 +27,22 @@ def fetch_hsi_data(period_years=10, ticker='^HSI', filename='data/hsi_prices.csv
     if data.empty:
         raise ValueError(f"No data downloaded for {ticker}. Check ticker or internet connection.")
     
-    # Use 'Close' for indices (no 'Adj Close' available)
-    if 'Adj Close' in data.columns:
-        prices = data['Adj Close']
+    # Use 'Close' for indices, handling possible MultiIndex
+    if isinstance(data.columns, pd.MultiIndex):
+        prices = data[('Close', ticker)] if ('Close', ticker) in data.columns else data.xs('Close', level=0, axis=1)[ticker]
     else:
-        prices = data['Close']  # This will be used for ^HSI
+        prices = data['Close']
     
-    # Clean up
+    # Always set name
     prices = prices.dropna()
     prices.index = pd.to_datetime(prices.index)
-    prices.name = 'Close_Price'  # Clearer name
+    prices.name = 'Close_Price' # Force name
     
     # Ensure data folder exists
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     
-    # Save to CSV
-    prices.to_csv(filename)
+    # Save with index_label for clear 'Date' header
+    prices.to_csv(filename, index_label='Date')
     
     print(f"Data fetched: {len(prices)} trading days from {prices.index[0].date()} to {prices.index[-1].date()}")
     print(f"Saved to {filename}")
