@@ -37,9 +37,6 @@ poetry.lock
 # Data files (optional: ignore large CSVs to keep repo small)
 data/*.pkl
 
-# Results (charts, etc. — can be regenerated)
-results/
-
 # IDEs
 .idea/              # PyCharm/JetBrains
 .vscode/            # VS Code settings (optional, if you share settings keep it)
