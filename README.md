@@ -25,7 +25,7 @@ Golden Cross: Buy when 50-day SMA > 200-day (uptrend). Sell on reverse or stop-l
 ![Equity Curve](results/figures/equity_curve.png)
 
 - Metrics:
-[Paste your table here or embed CSV]
+[CSV](results/metrics_summary.csv)
 
 ## Conclusions
 Strategy underperformed returns (-28%) vs buy-hold (+8%), but lower risk (vol 6% vs 22%, drawdown -31% vs -56%). Good for risk-averse; improve with looser stops.
